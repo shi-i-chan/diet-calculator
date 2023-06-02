@@ -38,8 +38,8 @@ def get_daily_price_df(price_dict: dict, diet_dict: dict) -> pd.DataFrame:
 
 
 def plot_prices(fig: go.Figure, prices_df: pd.DataFrame, colors_dict: dict,
-                row: int = 1, col: int = 1, price_factor: int = 1,
-                visible: bool = True) -> NoReturn:
+                row: int = 1, col: int = 1, price_factor: int = 1, text_size: int = 13,
+                tickangle: int = 50, tickfont_size: int = 15, visible: bool = True) -> NoReturn:
     """ Plot price chart """
     prices_df = prices_df * price_factor
     sorted_cols = prices_df.sum().sort_values(ascending=False).index
@@ -65,7 +65,7 @@ def plot_prices(fig: go.Figure, prices_df: pd.DataFrame, colors_dict: dict,
                 mode='text',
                 textposition='top center',
                 textfont=dict(
-                    size=13,
+                    size=text_size,
                 ),
                 showlegend=False
             ),
@@ -73,9 +73,17 @@ def plot_prices(fig: go.Figure, prices_df: pd.DataFrame, colors_dict: dict,
             col=col,
         )
 
+    fig.update_xaxes(
+        tickangle=tickangle,
+        showticklabels=True,
+        tickfont_size=tickfont_size,
+        row=row,
+        col=col,
+    )
+
 
 def plot_nutrients(fig, nutrients_df, colors_dict: dict,
-                   text_size: int = 13, tickangle: int = 50, tickfont_size: int = 13,
+                   text_size: int = 13, tickangle: int = 50, tickfont_size: int = 15,
                    row: int = 1, col: int = 1, visible: bool = True) -> NoReturn:
     """ Plot nutrients chart """
     products = nutrients_df.columns
@@ -152,6 +160,6 @@ def make_figure(products_data, price_data, visible: bool = True) -> go.Figure:
         barmode='stack',
         height=1000,
         # width=1100,
-        title_text="Food calculator",
+        title_text="Diet calculator",
     )
     return fig

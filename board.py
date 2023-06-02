@@ -49,5 +49,5 @@ if __name__ == '__main__':
 
     port = 8050
     Timer(1, open_browser).start()
-    app.run_server(debug=True, port=port, use_reloader=False)
+    app.run_server(debug=False, port=port, use_reloader=False)
     input('Press any key to exit...')
